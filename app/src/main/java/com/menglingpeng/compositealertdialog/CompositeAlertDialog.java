@@ -14,6 +14,8 @@ import android.view.View;
 public class CompositeAlertDialog extends Dialog implements View.OnClickListener {
 
     public static final int TYPE_NOMAL = 0;
+    public static final int TYPE_SUCCESS = 1;
+    public static final int TYPE_ERROR = 2;
 
     public CompositeAlertDialog(@NonNull Context context) {
         super(context, TYPE_NOMAL);
