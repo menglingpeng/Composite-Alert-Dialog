@@ -53,6 +53,7 @@ public class AnimationLoader {
                                                     AnimationSet parent, AttributeSet attrs) throws
             XmlPullParserException, IOException {
         Animation anim = null;
+
         int type;
         int depth = parser.getDepth();
 
