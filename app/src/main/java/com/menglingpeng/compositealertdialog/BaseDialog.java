@@ -16,16 +16,6 @@ import android.widget.TextView;
 public class BaseDialog extends Dialog implements DialogInterface.OnShowListener{
 
     private OnShowListener showListener;
-    private View dialogView;
-    private TextView titleTv;
-    private TextView contentTv;
-    private String titleText;
-    private String contentText;
-    private boolean showCancel;
-    private boolean showContent;
-    private String cancelText;
-    private String confirmText;
-    private int alertType;
 
     public BaseDialog(Context context, int theme) {
         super(context, theme);
