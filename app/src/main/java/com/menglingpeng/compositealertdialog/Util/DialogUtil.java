@@ -62,6 +62,34 @@ public class DialogUtil {
         return (String) v.string;
     }
 
+    private static int gravityEnumToAttrInt(GravityEnum value) {
+        switch (value) {
+            case CENTER:
+                return 1;
+            case END:
+                return 2;
+            default:
+                return 0;
+        }
+    }
+
+    public static GravityEnum resolveGravityEnum(
+            Context context, @AttrRes int attr, GravityEnum defaultGravity) {
+        TypedArray a = context.getTheme().obtainStyledAttributes(new int[] {attr});
+        try {
+            switch (a.getInt(0, gravityEnumToAttrInt(defaultGravity))) {
+                case 1:
+                    return GravityEnum.CENTER;
+                case 2:
+                    return GravityEnum.END;
+                default:
+                    return GravityEnum.START;
+            }
+        } finally {
+            a.recycle();
+        }
+    }
+
     public static ColorStateList getActionTextStateList(Context context, int newPrimaryColor) {
         final int fallBackButtonColor =
                 DialogUtil.resolveColor(context, android.R.attr.textColorPrimary);
