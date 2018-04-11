@@ -5,7 +5,10 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -14,9 +17,12 @@ import android.widget.TextView;
 
 public class CompositeAlertDialog extends Dialog implements View.OnClickListener {
 
+    protected Context context;
     private View dialogView;
-    private TextView titleTv;
-    private TextView contentTv;
+    protected ImageView iconIv;
+    protected TextView titleTv;
+    protected TextView contentTv;
+    private EditText inputEt;
     private String titleText;
     private String contentText;
     private boolean showCancel;
@@ -31,11 +37,9 @@ public class CompositeAlertDialog extends Dialog implements View.OnClickListener
 
     public CompositeAlertDialog(@NonNull Context context) {
         super(context, TYPE_NOMAL);
+        this.context = context;
     }
 
-    public CompositeAlertDialog(@NonNull Context context, int themeResId) {
-        super(context, themeResId);
-    }
 
     protected void OnCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -45,6 +49,34 @@ public class CompositeAlertDialog extends Dialog implements View.OnClickListener
     public void onClick(View v) {
 
     }
+
+    public final View getView() {
+        return dialogView;
+    }
+
+    @Nullable
+    public final EditText getInputEditText() {
+        return inputEt;
+    }
+
+    public final TextView getTitleView() {
+        return titleTv;
+    }
+
+    public ImageView getIconView() {
+        return iconIv;
+    }
+
+    @Nullable
+    public final TextView getContentView() {
+        return contentTv;
+    }
+
+    public final Context getContext() {
+        return context;
+    }
+
+
 
     public static interface OnCompositeClickListener{
         void onClick(CompositeAlertDialog compositeAlertDialog);

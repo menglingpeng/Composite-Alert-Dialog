@@ -1,16 +1,22 @@
 package com.menglingpeng.compositealertdialog.Util;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.IBinder;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+
+import com.menglingpeng.compositealertdialog.CompositeAlertDialog;
 
 /**
  * Created by mengdroid on 2018/4/7.
@@ -89,6 +95,50 @@ public class DialogUtil {
             a.recycle();
         }
     }
+
+    public static void showKeyboard(final DialogInterface di) {
+        final CompositeAlertDialog dialog = (CompositeAlertDialog) di;
+        if (dialog.getInputEditText() == null) {
+            return;
+        }
+        dialog
+                .getInputEditText()
+                .post(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                dialog.getInputEditText().requestFocus();
+                                InputMethodManager imm =
+                                        (InputMethodManager)
+                                                dialog.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                if (imm != null) {
+                                    imm.showSoftInput(dialog.getInputEditText(), InputMethodManager.SHOW_IMPLICIT);
+                                }
+                            }
+                        });
+    }
+
+    public static void hideKeyboard(final DialogInterface di) {
+        final CompositeAlertDialog dialog = (CompositeAlertDialog) di;
+        if (dialog.getInputEditText() == null) {
+            return;
+        }
+        InputMethodManager imm =
+                (InputMethodManager) dialog.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            final View currentFocus = dialog.getCurrentFocus();
+            IBinder windowToken = null;
+            if (currentFocus != null) {
+                windowToken = currentFocus.getWindowToken();
+            } else if (dialog.getView() != null) {
+                windowToken = dialog.getView().getWindowToken();
+            }
+            if (windowToken != null) {
+                imm.hideSoftInputFromWindow(windowToken, 0);
+            }
+        }
+    }
+
 
     public static ColorStateList getActionTextStateList(Context context, int newPrimaryColor) {
         final int fallBackButtonColor =
