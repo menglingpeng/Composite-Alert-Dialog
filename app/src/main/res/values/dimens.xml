@@ -8,4 +8,9 @@
 
     <dimen name="icon_margin">16dp</dimen>
     <dimen name="title_textsize">20sp</dimen>
+
+    <dimen name="stub_progress_content_tv_layout_marginBottom">20dp</dimen>
+    <dimen name="stub_progress_content_tv_layout_marginTop">4dp</dimen>
+    <dimen name="stub_progress_label_tv_minWidth">36dp</dimen>
+    <dimen name="stub_progress_minMax_tv_minWidth">48dp</dimen>
 </resources>
