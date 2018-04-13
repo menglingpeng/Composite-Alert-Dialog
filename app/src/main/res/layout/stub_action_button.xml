@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</LinearLayout>
+    <com.menglingpeng.compositealertdialog.CDButton
+        android:id="@+id/button_defaultNeutral"
+        style="@style/MD_ActionButton.Text"
+        tools:text="Neutral"/>
+
+    <com.menglingpeng.compositealertdialog.CDButton
+        android:id="@+id/button_defaultNegative"
+        style="@style/MD_ActionButton.Text"
+        tools:layout_alignParentLeft="true"
+        tools:layout_alignParentStart="true"
+        tools:text="Negative"/>
+
+    <com.menglingpeng.compositealertdialog.CDButton
+        android:id="@+id/button_default_positive"
+        style="@style/MD_ActionButton.Text"
+        tools:layout_alignParentLeft="true"
+        tools:layout_alignParentStart="true"
+        tools:text="Positive"/>
+
+</merge>

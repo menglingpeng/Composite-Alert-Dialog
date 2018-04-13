@@ -5,6 +5,10 @@
     <dimen name="content_padding_top">8dp</dimen>
     <dimen name="content_padding_bottom">8dp</dimen>
     <dimen name="content_textsize">16sp</dimen>
+    <dimen name="button_textsize">16sp</dimen>
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="button_min_width">72dp</dimen>
+    <dimen name="button_textpadding_horizontal">1dp</dimen>
 
     <dimen name="icon_margin">16dp</dimen>
     <dimen name="title_textsize">20sp</dimen>
