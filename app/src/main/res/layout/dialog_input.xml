@@ -1,6 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<com.menglingpeng.compositealertdialog.Util.CDRootLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <include layout="@layout/stub_title_frame"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/content_padding_bottom"
+        android:paddingLeft="@dimen/dialog_frame_margin"
+        android:paddingRight="@dimen/dialog_frame_margin"
+        android:paddingTop="@dimen/content_padding_top">
+
+        <TextView
+            android:id="@+id/input_content_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/content_padding_bottom"
+            android:layout_marginTop="@dimen/input_content_tv_marginTop"
+            android:fontFamily="sans-serif"
+            android:textSize="@dimen/content_textsize"
+            tools:ignore="UnusedAttribute"
+            tools:text="Message"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@android:id/input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="-2dp"
+                android:layout_marginRight="-2dp"
+                android:focusable="true"
+                android:textSize="@dimen/content_textsize"
+                tools:ignore="TextFields"/>
+
+            <TextView
+                android:id="@+id/input_minMax_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@android:id/input"
+                android:layout_alignRight="@android:id/input"
+                android:layout_below="@android:id/input"
+                android:fontFamily="sans-serif"
+                android:gravity="end"
+                android:minWidth="@dimen/input_minMax_tv_minWidth"
+                android:paddingEnd="@dimen/input_minMax_tv_paddingEnd"
+                android:paddingRight="@dimen/input_minMax_tv_paddingRight"
+                android:textAlignment="viewEnd"
+                android:textSize="@dimen/input_minMax_tv_textSize"
+                tools:ignore="RtlSymmetry,UnusedAttribute"
+                tools:text="@string/input_minMax_tv_text"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <include layout="@layout/stub_action_button"/>
+
+</com.menglingpeng.compositealertdialog.Util.CDRootLayout>

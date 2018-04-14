@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CompositeAlertDialog</string>
+    <string name="input_minMax_tv_text">50/100</string>
 </resources>
