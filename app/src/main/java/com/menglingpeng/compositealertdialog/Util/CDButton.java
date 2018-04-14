@@ -6,6 +6,8 @@ import android.os.Build;
 import android.support.v7.text.AllCapsTransformationMethod;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.TextView;
 
 import com.menglingpeng.compositealertdialog.R;
 
@@ -15,7 +17,7 @@ import static android.view.View.TEXT_ALIGNMENT_CENTER;
  * Created by mengdroid on 2018/4/12.
  */
 
-public class CDButton {
+public class CDButton extends TextView {
 
     private boolean stacked = false;
     private GravityEnum stackedGravity;
@@ -29,7 +31,7 @@ public class CDButton {
         init(context);
     }
 
-    public DButton(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CDButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.ArrayRes;
@@ -166,5 +167,14 @@ public class DialogUtil {
         }
         ta.recycle();
         return colors;
+    }
+
+    public static void setBackgroundCompat(View view, Drawable d) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            //noinspection deprecation
+            view.setBackgroundDrawable(d);
+        } else {
+            view.setBackground(d);
+        }
     }
 }

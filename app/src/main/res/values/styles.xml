@@ -19,13 +19,13 @@
         <item name="android:backgroundDimAmount">0.4</item>
     </style>
 
-    <style name="MD_ActionButton">
+    <style name="CD_ActionButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">@dimen/button_height</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
 
-    <style name="MD_ActionButton.Text" tools:ignore="NewApi">
+    <style name="CD_ActionButton.Text" tools:ignore="NewApi">
         <item name="android:textSize">@dimen/button_textsize</item>
         <item name="android:singleLine">true</item>
         <item name="android:layout_gravity">center_vertical</item>
