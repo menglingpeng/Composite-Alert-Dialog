@@ -2,6 +2,7 @@ package com.menglingpeng.compositealertdialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,18 +12,26 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.menglingpeng.compositealertdialog.Util.CDButton;
+import com.menglingpeng.compositealertdialog.Util.DialogActionEnum;
+import com.menglingpeng.compositealertdialog.Util.DialogUtil;
+
 /**
  * Created by mengdroid on 2018/4/5.
  */
 
-public class CompositeAlertDialog extends Dialog implements View.OnClickListener {
+public class CompositeAlertDialog extends BaseDialog implements View.OnClickListener {
 
     protected Context context;
+    private DialogBuilder builder;
     private View dialogView;
     protected ImageView iconIv;
     protected TextView titleTv;
     protected TextView contentTv;
     private EditText inputEt;
+    private CDButton positiveButton;
+    private CDButton neutralButton;
+    private CDButton negativeButton;
     private String titleText;
     private String contentText;
     private boolean showCancel;
@@ -43,6 +52,17 @@ public class CompositeAlertDialog extends Dialog implements View.OnClickListener
 
     protected void OnCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+    }
+
+    public final CDButton getActionButton(DialogActionEnum which) {
+        switch (which) {
+            case NEUTRAL:
+                return neutralButton;
+            case NEGATIVE:
+                return negativeButton;
+            default:
+                return positiveButton;
+        }
     }
 
     @Override
@@ -67,6 +87,26 @@ public class CompositeAlertDialog extends Dialog implements View.OnClickListener
         return iconIv;
     }
 
+    public final void setActionButton(final DialogActionEnum which, @Nullable final CharSequence title) {
+        switch (which) {
+            default:
+                builder.positiveText = title;
+                positiveButton.setText(title);
+                positiveButton.setVisibility(title == null ? View.GONE : View.VISIBLE);
+                break;
+            case NEUTRAL:
+                builder.neutralText = title;
+                neutralButton.setText(title);
+                neutralButton.setVisibility(title == null ? View.GONE : View.VISIBLE);
+                break;
+            case NEGATIVE:
+                builder.negativeText = title;
+                negativeButton.setText(title);
+                negativeButton.setVisibility(title == null ? View.GONE : View.VISIBLE);
+                break;
+        }
+    }
+
     @Nullable
     public final TextView getContentView() {
         return contentTv;
@@ -76,7 +116,22 @@ public class CompositeAlertDialog extends Dialog implements View.OnClickListener
         return context;
     }
 
+    private static void setInputDialog(){
 
+    }
+
+    @Override
+    public void onShow(DialogInterface dialog) {
+        super.onShow(dialog);
+    }
+
+    @Override
+    public void dismiss() {
+        if(inputEt != null) {
+            DialogUtil.hideKeyboard(this);
+        }
+        super.dismiss();
+    }
 
     public static interface OnCompositeClickListener{
         void onClick(CompositeAlertDialog compositeAlertDialog);

@@ -5,19 +5,19 @@
 
     <com.menglingpeng.compositealertdialog.CDButton
         android:id="@+id/button_defaultNeutral"
-        style="@style/MD_ActionButton.Text"
+        style="@style/CD_ActionButton.Text"
         tools:text="Neutral"/>
 
     <com.menglingpeng.compositealertdialog.CDButton
         android:id="@+id/button_defaultNegative"
-        style="@style/MD_ActionButton.Text"
+        style="@style/CD_ActionButton.Text"
         tools:layout_alignParentLeft="true"
         tools:layout_alignParentStart="true"
         tools:text="Negative"/>
 
     <com.menglingpeng.compositealertdialog.CDButton
         android:id="@+id/button_default_positive"
-        style="@style/MD_ActionButton.Text"
+        style="@style/CD_ActionButton.Text"
         tools:layout_alignParentLeft="true"
         tools:layout_alignParentStart="true"
         tools:text="Positive"/>
