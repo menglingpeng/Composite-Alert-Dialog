@@ -12,6 +12,7 @@ import android.support.annotation.ArrayRes;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
@@ -176,5 +177,37 @@ public class DialogUtil {
         } else {
             view.setBackground(d);
         }
+    }
+
+    public static int[] getColorArray(Context context, @ArrayRes int array) {
+        if (array == 0) {
+            return null;
+        }
+        TypedArray ta = context.getResources().obtainTypedArray(array);
+        int[] colors = new int[ta.length()];
+        for (int i = 0; i < ta.length(); i++) {
+            colors[i] = ta.getColor(i, 0);
+        }
+        ta.recycle();
+        return colors;
+    }
+
+    public static <T> boolean isIn(T find, @Nullable T[] ary) {
+        if (ary == null || ary.length == 0) {
+            return false;
+        }
+        for (T item : ary) {
+            if (item.equals(find)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static <T> T checkNotNull(@Nullable T value, String name) {
+        if (value == null) {
+            throw new IllegalStateException(name + " == null");
+        }
+        return value;
     }
 }
