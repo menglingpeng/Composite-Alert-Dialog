@@ -8,15 +8,23 @@
     <dimen name="button_textsize">16sp</dimen>
     <dimen name="button_height">48dp</dimen>
     <dimen name="button_min_width">72dp</dimen>
-    <dimen name="button_textpadding_horizontal">1dp</dimen>
 
     <dimen name="icon_margin">16dp</dimen>
     <dimen name="title_textsize">20sp</dimen>
+
+    <dimen name="button_inset_vertical">6dp</dimen>
+    <dimen name="button_inset_horizontal">4dp</dimen>
+    <dimen name="button_textpadding_horizontal">1dp</dimen>
+    <dimen name="button_padding_horizontal">8dp</dimen>
+    <dimen name="button_padding_vertical">4dp</dimen>
+    <dimen name="button_padding_horizontal_internalexternal">32dp</dimen>
 
     <dimen name="stub_progress_content_tv_layout_marginBottom">20dp</dimen>
     <dimen name="stub_progress_content_tv_layout_marginTop">4dp</dimen>
     <dimen name="stub_progress_label_tv_minWidth">36dp</dimen>
     <dimen name="stub_progress_minMax_tv_minWidth">48dp</dimen>
+
+    <dimen name="action_corner_radius">2dp</dimen>
 
     <dimen name="input_content_tv_marginTop">4dp</dimen>
     <dimen name="input_minMax_tv_minWidth">48dp</dimen>

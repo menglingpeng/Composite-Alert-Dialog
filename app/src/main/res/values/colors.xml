@@ -4,4 +4,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="float_transparent">#00000000</color>
+
+    <color name="btn_selected">#33969696</color>
+    <color name="btn_selected_dark">#40CBCBCB</color>
+
+    <color name="divider_black">#10000000</color>
+    <color name="divider_white">#10FFFFFF</color>
+
 </resources>
