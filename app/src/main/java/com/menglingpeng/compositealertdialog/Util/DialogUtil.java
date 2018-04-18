@@ -98,6 +98,26 @@ public class DialogUtil {
         }
     }
 
+    public static Drawable resolveDrawable(Context context, @AttrRes int attr) {
+        return resolveDrawable(context, attr, null);
+    }
+
+    private static Drawable resolveDrawable(
+            Context context,
+            @AttrRes int attr,
+            @SuppressWarnings("SameParameterValue") Drawable fallback) {
+        TypedArray a = context.getTheme().obtainStyledAttributes(new int[] {attr});
+        try {
+            Drawable d = a.getDrawable(0);
+            if (d == null && fallback != null) {
+                d = fallback;
+            }
+            return d;
+        } finally {
+            a.recycle();
+        }
+    }
+
     public static void showKeyboard(final DialogInterface di) {
         final CompositeAlertDialog dialog = (CompositeAlertDialog) di;
         if (dialog.getInputEditText() == null) {

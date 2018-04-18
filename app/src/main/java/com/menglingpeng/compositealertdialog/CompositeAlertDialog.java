@@ -3,10 +3,12 @@ package com.menglingpeng.compositealertdialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -49,6 +51,16 @@ public class CompositeAlertDialog extends BaseDialog implements View.OnClickList
         this.context = context;
     }
 
+    final Drawable getListSelector() {
+        if (builder.listSelector != 0) {
+            return ResourcesCompat.getDrawable(getContext().getResources(), builder.listSelector, null);
+        }
+        final Drawable d = DialogUtil.resolveDrawable(getContext(), R.attr.md_list_selector);
+        if (d != null) {
+            return d;
+        }
+        return DialogUtil.resolveDrawable(getContext(), R.attr.md_list_selector);
+    }
 
     protected void OnCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);

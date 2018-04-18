@@ -1,5 +1,6 @@
 package com.menglingpeng.compositealertdialog;
 
+import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -21,12 +22,20 @@ public class DefaultAdapter extends RecyclerView.Adapter<DefaultAdapter.DefaultV
     private final CompositeAlertDialog dialog;
     private final int layout;
     private final GravityEnum itemGravity;
-    private DialogBuilder builder;
+    private static DialogBuilder builder;
+    private ListCallback callback;
+    private Context context;
 
-    DefaultAdapter(CompositeAlertDialog dialog, @LayoutRes int layout) {
+    public DefaultAdapter(Context context, CompositeAlertDialog dialog, @LayoutRes int layout) {
+        this.context = context;
         this.dialog = dialog;
         this.layout = layout;
         this.itemGravity = builder.itemsGravity;
+        builder = new DialogBuilder(context);
+    }
+
+    void setCallback(ListCallback callback) {
+        this.callback = callback;
     }
 
     @Override
@@ -46,7 +55,7 @@ public class DefaultAdapter extends RecyclerView.Adapter<DefaultAdapter.DefaultV
         return builder.items != null ? builder.items.size() : 0;
     }
 
-    interface InternalListCallback {
+    interface ListCallback {
 
         boolean onItemSelected(
                 CompositeAlertDialog dialog,
@@ -59,9 +68,9 @@ public class DefaultAdapter extends RecyclerView.Adapter<DefaultAdapter.DefaultV
     public static class DefaultVH extends RecyclerView.ViewHolder
             implements View.OnClickListener, View.OnLongClickListener {
 
-        final CompoundButton control;
-        final TextView title;
-        final DefaultAdapter adapter;
+        private final CompoundButton control;
+        private final TextView title;
+        private final DefaultAdapter adapter;
 
         DefaultVH(View itemView, DefaultAdapter adapter) {
             super(itemView);
@@ -75,13 +84,32 @@ public class DefaultAdapter extends RecyclerView.Adapter<DefaultAdapter.DefaultV
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(View view) {
+            if (adapter.callback != null && getAdapterPosition() != RecyclerView.NO_POSITION) {
+                CharSequence text = null;
+                if (builder.items != null
+                        && getAdapterPosition() < builder.items.size()) {
+                    text = builder.items.get(getAdapterPosition());
+                }
+                adapter.callback.onItemSelected(adapter.dialog, view, getAdapterPosition(), text, false);
+            }
 
         }
 
         @Override
-        public boolean onLongClick(View v) {
+        public boolean onLongClick(View view) {
+            if (adapter.callback != null && getAdapterPosition() != RecyclerView.NO_POSITION) {
+                CharSequence text = null;
+                if (builder.items != null
+                        && getAdapterPosition() < builder.items.size()) {
+                    text = builder.items.get(getAdapterPosition());
+                }
+                return adapter.callback.onItemSelected(
+                        adapter.dialog, view, getAdapterPosition(), text, true);
+            }
             return false;
         }
+        }
     }
+
 }
