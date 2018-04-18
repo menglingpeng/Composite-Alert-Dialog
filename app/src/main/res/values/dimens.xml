@@ -8,6 +8,11 @@
     <dimen name="button_textsize">16sp</dimen>
     <dimen name="button_height">48dp</dimen>
     <dimen name="button_min_width">72dp</dimen>
+    <dimen name="title_frame_margin_bottom_less">6dp</dimen>
+
+    <dimen name="notitle_vertical_padding">16dp</dimen>
+
+    <dimen name="notitle_vertical_padding_more">20dp</dimen>
 
     <dimen name="icon_margin">16dp</dimen>
     <dimen name="title_textsize">20sp</dimen>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.menglingpeng.compositealertdialog.Util.CDRootLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/stub_title_frame_lesspadding"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/md_contentScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false">
+
+            <TextView
+                android:id="@+id/md_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/content_padding_bottom"
+                android:paddingLeft="@dimen/dialog_frame_margin"
+                android:paddingRight="@dimen/dialog_frame_margin"
+                android:paddingTop="@dimen/content_padding_top"
+                android:textSize="@dimen/content_textsize"
+                tools:text="Content"/>
+
+        </ScrollView>
+
+        <FrameLayout
+            android:id="@+id/md_contentListViewFrame"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/md_contentRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/content_padding_bottom"
+                android:paddingTop="@dimen/content_padding_top"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical"/>
+
+        </FrameLayout>
+
+        <CheckBox
+            android:id="@+id/md_promptCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginLeft="@dimen/notitle_vertical_padding"
+            android:layout_marginRight="@dimen/notitle_vertical_padding"
+            android:focusable="true"
+            android:gravity="start|center_vertical"
+            tools:text="Don't ask again"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/stub_action_button"/>
+
+</com.menglingpeng.compositealertdialog.Util.CDRootLayout>
