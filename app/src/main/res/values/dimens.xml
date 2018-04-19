@@ -29,6 +29,13 @@
     <dimen name="stub_progress_label_tv_minWidth">36dp</dimen>
     <dimen name="stub_progress_minMax_tv_minWidth">48dp</dimen>
 
+    <dimen name="list_item_textsize">16sp</dimen>
+    <dimen name="list_item_height">48dp</dimen>
+    <dimen name="list_item_control_margin">6dp</dimen>
+    <dimen name="list_item_margin_left">24dp</dimen>
+    <dimen name="list_item_vertical_margin">12dp</dimen>
+    <dimen name="list_item_vertical_margin_choice">8dp</dimen>
+
     <dimen name="action_corner_radius">2dp</dimen>
 
     <dimen name="input_content_tv_marginTop">4dp</dimen>

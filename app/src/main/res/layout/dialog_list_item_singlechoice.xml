@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="true"
+    android:minHeight="@dimen/list_item_height"
+    android:orientation="horizontal"
+    android:paddingEnd="@dimen/dialog_frame_margin"
+    android:paddingLeft="@dimen/dialog_frame_margin"
+    android:paddingRight="@dimen/dialog_frame_margin"
+    android:paddingStart="@dimen/dialog_frame_margin"
+    tools:gravity="start|center_vertical">
+
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/control_rb"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:clickable="false"
+        android:focusable="false"
+        android:gravity="center_vertical"/>
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/list_item_height"
+        android:paddingBottom="@dimen/list_item_vertical_margin_choice"
+        android:paddingLeft="@dimen/list_item_control_margin"
+        android:paddingStart="@dimen/list_item_control_margin"
+        android:paddingTop="@dimen/list_item_vertical_margin_choice"
+        android:textSize="@dimen/list_item_textsize"
+        tools:ignore="NewApi,RtlSymmetry"
+        tools:text="Item"/>
+
+</LinearLayout>
