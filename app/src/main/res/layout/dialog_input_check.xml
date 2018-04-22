@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.menglingpeng.compositealertdialog.Util.CDRootLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/stub_title_frame"/>
+
+    <LinearLayout
+        android:id="@+id/dialog_input_check_ll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/content_padding_bottom"
+        android:paddingTop="@dimen/content_padding_top">
+
+        <TextView
+            android:id="@+id/content_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/content_padding_bottom"
+            android:layout_marginLeft="@dimen/dialog_frame_margin"
+            android:layout_marginRight="@dimen/dialog_frame_margin"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif"
+            android:textSize="@dimen/content_textsize"
+            tools:ignore="UnusedAttribute"
+            tools:text="Message"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dialog_frame_margin"
+            android:layout_marginRight="@dimen/dialog_frame_margin">
+
+            <EditText
+                android:id="@android:id/input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="-2dp"
+                android:layout_marginRight="-2dp"
+                android:textSize="@dimen/content_textsize"
+                tools:ignore="TextFields"/>
+
+            <TextView
+                android:id="@+id/minMax_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@android:id/input"
+                android:layout_alignRight="@android:id/input"
+                android:layout_below="@android:id/input"
+                android:fontFamily="sans-serif"
+                android:gravity="end"
+                android:minWidth="@dimen/input_minMax_tv_minWidth"
+                android:paddingEnd="@dimen/input_minMax_tv_paddingEnd"
+                android:paddingRight="@dimen/input_minMax_tv_paddingRight"
+                android:textAlignment="viewEnd"
+                android:textSize="@dimen/input_minMax_tv_textSize"
+                tools:ignore="RtlSymmetry,UnusedAttribute"
+                tools:text="@string/input_minMax_tv_text"/>
+
+        </RelativeLayout>
+
+        <CheckBox
+            android:id="@+id/prompt_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginLeft="@dimen/notitle_vertical_padding_more"
+            android:layout_marginRight="@dimen/notitle_vertical_padding_more"
+            android:focusable="true"
+            android:gravity="start"
+            tools:text="Don't ask again"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/stub_action_button"/>
+
+</com.menglingpeng.compositealertdialog.Util.CDRootLayout>
