@@ -16,6 +16,7 @@ public  class DialogBuilder {
 
     protected Context context;
     protected CharSequence title;
+    public View customView;
     protected GravityEnum titleGravity = GravityEnum.START;
     protected GravityEnum contentGravity = GravityEnum.START;
     protected GravityEnum btnStackedGravity = GravityEnum.END;
@@ -25,6 +26,7 @@ public  class DialogBuilder {
     protected ArrayList<CharSequence> items;
 
     protected ListLongCallback listLongCallback;
+    private InputCallback inputCallback;
 
     protected CharSequence positiveText;
     protected CharSequence neutralText;

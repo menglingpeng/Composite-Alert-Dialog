@@ -1,11 +1,10 @@
 package com.menglingpeng.compositealertdialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
@@ -17,6 +16,9 @@ import android.widget.TextView;
 import com.menglingpeng.compositealertdialog.Util.CDButton;
 import com.menglingpeng.compositealertdialog.Util.DialogActionEnum;
 import com.menglingpeng.compositealertdialog.Util.DialogUtil;
+import com.menglingpeng.compositealertdialog.Util.GravityEnum;
+
+import java.util.ArrayList;
 
 /**
  * Created by mengdroid on 2018/4/5.
@@ -148,4 +150,50 @@ public class CompositeAlertDialog extends BaseDialog implements View.OnClickList
     public static interface OnCompositeClickListener{
         void onClick(CompositeAlertDialog compositeAlertDialog);
     }
+
+    public interface InputCallback {
+        void onInput(CompositeAlertDialog dialog, CharSequence input);
+    }
+
+    public static class DialogBuilder {
+
+        protected Context context;
+        protected CharSequence title;
+        public View customView;
+        protected GravityEnum titleGravity = GravityEnum.START;
+        protected GravityEnum contentGravity = GravityEnum.START;
+        protected GravityEnum btnStackedGravity = GravityEnum.END;
+        protected GravityEnum itemsGravity = GravityEnum.START;
+        protected GravityEnum buttonsGravity = GravityEnum.START;
+
+        public ArrayList<CharSequence> items;
+        public CharSequence checkBoxPrompt;
+
+        public int progress = -2;
+
+        protected com.menglingpeng.compositealertdialog.DialogBuilder.ListLongCallback listLongCallback;
+        public InputCallback inputCallback;
+
+        protected CharSequence positiveText;
+        protected CharSequence neutralText;
+        protected CharSequence negativeText;
+
+        public boolean indeterminateProgress;
+        public boolean indeterminateIsHorizontalProgress;
+
+        protected int listSelector;
+
+        public DialogBuilder(Context context){
+            this.context = context;
+        }
+
+        public interface ListLongCallback {
+            boolean onLongSelection(CompositeAlertDialog dialog, View itemView, int position, CharSequence text);
+        }
+
+
+        public DialogBuilder listSelector(@DrawableRes int selectorRes) {
+            this.listSelector = selectorRes;
+            return this;
+        }
 }
