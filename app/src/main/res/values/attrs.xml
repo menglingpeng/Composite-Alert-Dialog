@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <attr name="md_list_selector" format="reference" />
+    <attr name="cd_list_selector" format="reference" />
+
+    <attr name="cd_icon" format="reference" />
+    <attr name="cd_icon_max_size" format="dimension" />
+    <attr name="cd_icon_limit_icon_to_default_size" format="boolean" />
 
     <declare-styleable name="CDRootLayout">
         <attr name="md_reduce_padding_no_title_no_buttons" format="boolean" />
