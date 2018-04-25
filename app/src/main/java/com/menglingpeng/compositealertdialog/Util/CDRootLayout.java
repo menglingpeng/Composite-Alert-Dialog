@@ -1,15 +1,20 @@
 package com.menglingpeng.compositealertdialog.Util;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.menglingpeng.compositealertdialog.R;
+
+import static com.menglingpeng.compositealertdialog.Util.GravityEnum.END;
+import static com.menglingpeng.compositealertdialog.Util.GravityEnum.START;
 
 /**
  * Created by mengdroid on 2018/4/14.
@@ -28,6 +33,8 @@ import com.menglingpeng.compositealertdialog.R;
     private static final int INDEX_NEUTRAL = 0;
     private static final int INDEX_NEGATIVE = 1;
     private static final int INDEX_POSITIVE = 2;
+
+    private GravityEnum buttonGravity = GravityEnum.START;
 
 
     public CDRootLayout(Context context) {
@@ -58,6 +65,37 @@ import com.menglingpeng.compositealertdialog.R;
         return visible;
     }
 
+    private static View getBottomView(@Nullable ViewGroup viewGroup) {
+        if (viewGroup == null || viewGroup.getChildCount() == 0) {
+            return null;
+        }
+        View bottomView = null;
+        for (int i = viewGroup.getChildCount() - 1; i >= 0; i--) {
+            View child = viewGroup.getChildAt(i);
+            if (child.getVisibility() == View.VISIBLE
+                    && child.getBottom() == viewGroup.getMeasuredHeight()) {
+                bottomView = child;
+                break;
+            }
+        }
+        return bottomView;
+    }
+
+    private static View getTopView(@Nullable ViewGroup viewGroup) {
+        if (viewGroup == null || viewGroup.getChildCount() == 0) {
+            return null;
+        }
+        View topView = null;
+        for (int i = viewGroup.getChildCount() - 1; i >= 0; i--) {
+            View child = viewGroup.getChildAt(i);
+            if (child.getVisibility() == View.VISIBLE && child.getTop() == 0) {
+                topView = child;
+                break;
+            }
+        }
+        return topView;
+    }
+
     private void init(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         Resources r = context.getResources();
 
@@ -79,5 +117,22 @@ import com.menglingpeng.compositealertdialog.R;
             content.layout(l, t, r, t + content.getMeasuredHeight());
         }
 
+    }
+
+    private void invertGravityIfNecessary() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return;
+        }
+        Configuration config = getResources().getConfiguration();
+        if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+            switch (buttonGravity) {
+                case START:
+                    buttonGravity = END;
+                    break;
+                case END:
+                    buttonGravity = START;
+                    break;
+            }
+        }
     }
 }
