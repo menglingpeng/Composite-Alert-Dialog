@@ -8,6 +8,30 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="CD_Light" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="md_divider">@color/divider_black</item>
+        <item name="md_list_selector">@drawable/selector</item>
+        <item name="md_btn_stacked_selector">@drawable/selector</item>
+        <item name="md_btn_positive_selector">@drawable/btn_selector</item>
+        <item name="md_btn_neutral_selector">@drawable/btn_selector</item>
+        <item name="md_btn_negative_selector">@drawable/btn_selector</item>
+
+        <item name="android:windowAnimationStyle">@style/MD_WindowAnimation</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="CD_Dark" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="md_divider">@color/divider_white</item>
+        <item name="md_list_selector">@drawable/selector_dark</item>
+        <item name="md_btn_stacked_selector">@drawable/selector_dark</item>
+        <item name="md_btn_positive_selector">@drawable/btn_selector_dark</item>
+        <item name="md_btn_neutral_selector">@drawable/btn_selector_dark</item>
+        <item name="md_btn_negative_selector">@drawable/btn_selector_dark</item>
+
+        <item name="android:windowAnimationStyle">@style/MD_WindowAnimation</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
     <style name="alert_dialog" parent="android:Theme.Dialog">
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowIsTranslucent">false</item>
@@ -36,6 +60,12 @@
         <item name="android:paddingLeft">@dimen/button_textpadding_horizontal</item>
         <item name="android:paddingRight">@dimen/button_textpadding_horizontal</item>
     </style>
+
+    <style name="MD_WindowAnimation">
+        <item name="android:windowEnterAnimation">@anim/popup_enter</item>
+        <item name="android:windowExitAnimation">@anim/popup_exit</item>
+    </style>
+
 
 
 </resources>
