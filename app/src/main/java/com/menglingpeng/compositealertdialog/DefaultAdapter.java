@@ -1,13 +1,17 @@
 package com.menglingpeng.compositealertdialog;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.menglingpeng.compositealertdialog.Util.DialogUtil;
@@ -53,6 +57,55 @@ public class DefaultAdapter extends RecyclerView.Adapter<DefaultAdapter.DefaultV
     @Override
     public int getItemCount() {
         return builder.items != null ? builder.items.size() : 0;
+    }
+    private boolean isRTL(Context context) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return false;
+        }
+        Configuration config = context.getResources().getConfiguration();
+        return config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+    }
+
+    private void setupGravity(ViewGroup view) {
+        final LinearLayout itemRoot = (LinearLayout) view;
+        final int gravityInt = itemGravity.getGravityInt();
+        itemRoot.setGravity(gravityInt | Gravity.CENTER_VERTICAL);
+
+        if (view.getChildCount() == 2) {
+            if (itemGravity == GravityEnum.END
+                    && !isRTL(view.getContext())
+                    && view.getChildAt(0) instanceof CompoundButton) {
+                CompoundButton first = (CompoundButton) view.getChildAt(0);
+                view.removeView(first);
+
+                TextView second = (TextView) view.getChildAt(0);
+                view.removeView(second);
+                second.setPadding(
+                        second.getPaddingRight(),
+                        second.getPaddingTop(),
+                        second.getPaddingLeft(),
+                        second.getPaddingBottom());
+
+                view.addView(second);
+                view.addView(first);
+            } else if (itemGravity == GravityEnum.START
+                    && isRTL(view.getContext())
+                    && view.getChildAt(1) instanceof CompoundButton) {
+                CompoundButton first = (CompoundButton) view.getChildAt(1);
+                view.removeView(first);
+
+                TextView second = (TextView) view.getChildAt(0);
+                view.removeView(second);
+                second.setPadding(
+                        second.getPaddingRight(),
+                        second.getPaddingTop(),
+                        second.getPaddingRight(),
+                        second.getPaddingBottom());
+
+                view.addView(first);
+                view.addView(second);
+            }
+        }
     }
 
     interface ListCallback {

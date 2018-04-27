@@ -16,7 +16,7 @@
         <item name="md_btn_neutral_selector">@drawable/btn_selector</item>
         <item name="md_btn_negative_selector">@drawable/btn_selector</item>
 
-        <item name="android:windowAnimationStyle">@style/MD_WindowAnimation</item>
+        <item name="android:windowAnimationStyle">@style/CD_WindowAnimation</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
@@ -28,7 +28,7 @@
         <item name="md_btn_neutral_selector">@drawable/btn_selector_dark</item>
         <item name="md_btn_negative_selector">@drawable/btn_selector_dark</item>
 
-        <item name="android:windowAnimationStyle">@style/MD_WindowAnimation</item>
+        <item name="android:windowAnimationStyle">@style/CD_WindowAnimation</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
@@ -61,7 +61,7 @@
         <item name="android:paddingRight">@dimen/button_textpadding_horizontal</item>
     </style>
 
-    <style name="MD_WindowAnimation">
+    <style name="CD_WindowAnimation">
         <item name="android:windowEnterAnimation">@anim/popup_enter</item>
         <item name="android:windowExitAnimation">@anim/popup_exit</item>
     </style>
