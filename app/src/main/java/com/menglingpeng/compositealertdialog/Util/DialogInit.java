@@ -1,11 +1,16 @@
 package com.menglingpeng.compositealertdialog.Util;
 
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.View;
 
 import com.menglingpeng.compositealertdialog.CompositeAlertDialog;
 import com.menglingpeng.compositealertdialog.DialogBuilder;
 import com.menglingpeng.compositealertdialog.R;
+
+import me.zhanghai.android.materialprogressbar.HorizontalProgressDrawable;
+import me.zhanghai.android.materialprogressbar.IndeterminateCircularProgressDrawable;
+import me.zhanghai.android.materialprogressbar.IndeterminateHorizontalProgressDrawable;
 
 /**
  * Created by mengdroid on 2018/4/22.
@@ -92,6 +97,76 @@ public class DialogInit {
                 dialog.icon.setVisibility(View.GONE);
             }
         }
+    }
 
+    private static void setupProgressDialog(final CompositeAlertDialog dialog) {
+        final CompositeAlertDialog.DialogBuilder builder = dialog.builder;
+        if (builder.indeterminateProgress || builder.progress > -2) {
+            dialog.progressBar = dialog.view.findViewById(android.R.id.progress);
+            if (dialog.progressBar == null) {
+                return;
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                if (builder.indeterminateProgress) {
+                    if (builder.indeterminateIsHorizontalProgress) {
+                        IndeterminateHorizontalProgressDrawable d =
+                                new IndeterminateHorizontalProgressDrawable(builder.getContext());
+                        d.setTint(builder.widgetColor);
+                        dialog.progressBar.setProgressDrawable(d);
+                        dialog.progressBar.setIndeterminateDrawable(d);
+                    } else {
+                        IndeterminateCircularProgressDrawable d =
+                                new IndeterminateCircularProgressDrawable(builder.getContext());
+                        d.setTint(builder.widgetColor);
+                        dialog.progressBar.setProgressDrawable(d);
+                        dialog.progressBar.setIndeterminateDrawable(d);
+                    }
+                } else {
+                    HorizontalProgressDrawable d = new HorizontalProgressDrawable(builder.getContext());
+                    d.setTint(builder.widgetColor);
+                    dialog.progressBar.setProgressDrawable(d);
+                    dialog.progressBar.setIndeterminateDrawable(d);
+                }
+            } else {
+                TintHelper.setTint(dialog.progressBar, builder.widgetColor);
+            }
+
+            if (!builder.indeterminateProgress || builder.indeterminateIsHorizontalProgress) {
+                dialog.progressBar.setIndeterminate(
+                        builder.indeterminateProgress && builder.indeterminateIsHorizontalProgress);
+                dialog.progressBar.setProgress(0);
+                dialog.progressBar.setMax(builder.progressMax);
+                dialog.progressLabel = dialog.view.findViewById(R.id.md_label);
+                if (dialog.progressLabel != null) {
+                    dialog.progressLabel.setTextColor(builder.contentColor);
+                    dialog.setTypeface(dialog.progressLabel, builder.mediumFont);
+                    dialog.progressLabel.setText(builder.progressPercentFormat.format(0));
+                }
+                dialog.progressMinMax = dialog.view.findViewById(R.id.md_minMax);
+                if (dialog.progressMinMax != null) {
+                    dialog.progressMinMax.setTextColor(builder.contentColor);
+                    dialog.setTypeface(dialog.progressMinMax, builder.regularFont);
+
+                    if (builder.showMinMax) {
+                        dialog.progressMinMax.setVisibility(View.VISIBLE);
+                        dialog.progressMinMax.setText(
+                                String.format(builder.progressNumberFormat, 0, builder.progressMax));
+                        ViewGroup.MarginLayoutParams lp =
+                                (ViewGroup.MarginLayoutParams) dialog.progressBar.getLayoutParams();
+                        lp.leftMargin = 0;
+                        lp.rightMargin = 0;
+                    } else {
+                        dialog.progressMinMax.setVisibility(View.GONE);
+                    }
+                } else {
+                    builder.showMinMax = false;
+                }
+            }
+        }
+
+        if (dialog.progressBar != null) {
+            fixCanvasScalingWhenHardwareAccelerated(dialog.progressBar);
+        }
     }
 }
