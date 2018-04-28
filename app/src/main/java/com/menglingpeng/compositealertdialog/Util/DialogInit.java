@@ -40,7 +40,7 @@ public class DialogInit {
     }
 
     public static void init(final CompositeAlertDialog dialog) {
-        final DialogBuilder builder = builder;
+        final CompositeAlertDialog builder = builder;
 
         dialog.titleTv = dialog.view.findViewById(R.id.md_title);
         dialog.iconIv = dialog.view.findViewById(R.id.md_icon);
@@ -91,6 +91,7 @@ public class DialogInit {
             } else {
                 dialog.icon.setVisibility(View.GONE);
             }
-    }
+        }
 
     }
+}

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.menglingpeng.compositealertdialog.Util.CDButton;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 public class CompositeAlertDialog extends BaseDialog implements View.OnClickListener {
 
     protected Context context;
-    private DialogBuilder builder;
+    public DialogBuilder builder;
     public  View view;
     public ImageView iconIv;
     public TextView titleTv;
@@ -37,6 +38,7 @@ public class CompositeAlertDialog extends BaseDialog implements View.OnClickList
     public View titleFrame;
     public RecyclerView recyclerView;
     private EditText inputEt;
+    public ProgressBar progressBar;
     public CheckBox checkBoxPrompt;
     public CDButton positiveButton;
     public CDButton neutralButton;
@@ -176,7 +178,7 @@ public class CompositeAlertDialog extends BaseDialog implements View.OnClickList
 
         public int progress = -2;
 
-        protected com.menglingpeng.compositealertdialog.DialogBuilder.ListLongCallback listLongCallback;
+        protected ListLongCallback listLongCallback;
         public InputCallback inputCallback;
 
         protected CharSequence positiveText;
@@ -188,7 +190,7 @@ public class CompositeAlertDialog extends BaseDialog implements View.OnClickList
 
         protected int listSelector;
 
-        public DialogBuilder(Context context){
+        public DialogBuilder(Context context) {
             this.context = context;
         }
 
@@ -201,4 +203,6 @@ public class CompositeAlertDialog extends BaseDialog implements View.OnClickList
             this.listSelector = selectorRes;
             return this;
         }
+    }
+
 }
