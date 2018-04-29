@@ -1,13 +1,16 @@
 package com.menglingpeng.compositealertdialog.Util;
 
 import android.content.res.ColorStateList;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.widget.CheckBox;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.SeekBar;
 
 /**
  * Created by mengdroid on 2018/4/28.
@@ -75,6 +78,55 @@ public class TintHelper {
                                 disabledColor
                         });
         setTint(box, sl);
+    }
+
+    public static void setTint(ProgressBar progressBar, @ColorInt int color) {
+        setTint(progressBar, color, false);
+    }
+
+    private static void setTint(
+            ProgressBar progressBar, @ColorInt int color, boolean skipIndeterminate) {
+        ColorStateList sl = ColorStateList.valueOf(color);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            progressBar.setProgressTintList(sl);
+            progressBar.setSecondaryProgressTintList(sl);
+            if (!skipIndeterminate) {
+                progressBar.setIndeterminateTintList(sl);
+            }
+        } else {
+            PorterDuff.Mode mode = PorterDuff.Mode.SRC_IN;
+            if (!skipIndeterminate && progressBar.getIndeterminateDrawable() != null) {
+                progressBar.getIndeterminateDrawable().setColorFilter(color, mode);
+            }
+            if (progressBar.getProgressDrawable() != null) {
+                progressBar.getProgressDrawable().setColorFilter(color, mode);
+            }
+        }
+    }
+
+    public static void setTint(SeekBar seekBar, @ColorInt int color) {
+        ColorStateList s1 = ColorStateList.valueOf(color);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            seekBar.setThumbTintList(s1);
+            seekBar.setProgressTintList(s1);
+        } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
+            Drawable progressDrawable = DrawableCompat.wrap(seekBar.getProgressDrawable());
+            seekBar.setProgressDrawable(progressDrawable);
+            DrawableCompat.setTintList(progressDrawable, s1);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                Drawable thumbDrawable = DrawableCompat.wrap(seekBar.getThumb());
+                DrawableCompat.setTintList(thumbDrawable, s1);
+                seekBar.setThumb(thumbDrawable);
+            }
+        } else {
+            PorterDuff.Mode mode = PorterDuff.Mode.SRC_IN;
+            if (seekBar.getIndeterminateDrawable() != null) {
+                seekBar.getIndeterminateDrawable().setColorFilter(color, mode);
+            }
+            if (seekBar.getProgressDrawable() != null) {
+                seekBar.getProgressDrawable().setColorFilter(color, mode);
+            }
+        }
     }
 
 }
