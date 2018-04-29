@@ -1,5 +1,6 @@
 package com.menglingpeng.compositealertdialog.Util;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -7,10 +8,15 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.widget.AppCompatEditText;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
+import android.widget.TextView;
+
+import java.lang.reflect.Field;
 
 /**
  * Created by mengdroid on 2018/4/28.
@@ -127,6 +133,57 @@ public class TintHelper {
                 seekBar.getProgressDrawable().setColorFilter(color, mode);
             }
         }
+    }
+
+    public static void setTint(EditText editText, @ColorInt int color) {
+        ColorStateList editTextColorStateList =
+                createEditTextColorStateList(editText.getContext(), color);
+        if (editText instanceof AppCompatEditText) {
+            //noinspection RestrictedApi
+            ((AppCompatEditText) editText).setSupportBackgroundTintList(editTextColorStateList);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            editText.setBackgroundTintList(editTextColorStateList);
+        }
+        setCursorTint(editText, color);
+    }
+
+    private static void setCursorTint(EditText editText, @ColorInt int color) {
+        try {
+            Field fCursorDrawableRes = TextView.class.getDeclaredField("mCursorDrawableRes");
+            fCursorDrawableRes.setAccessible(true);
+            int mCursorDrawableRes = fCursorDrawableRes.getInt(editText);
+            Field fEditor = TextView.class.getDeclaredField("mEditor");
+            fEditor.setAccessible(true);
+            Object editor = fEditor.get(editText);
+            Class<?> clazz = editor.getClass();
+            Field fCursorDrawable = clazz.getDeclaredField("mCursorDrawable");
+            fCursorDrawable.setAccessible(true);
+            Drawable[] drawables = new Drawable[2];
+            drawables[0] = ContextCompat.getDrawable(editText.getContext(), mCursorDrawableRes);
+            drawables[1] = ContextCompat.getDrawable(editText.getContext(), mCursorDrawableRes);
+            drawables[0].setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            drawables[1].setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            fCursorDrawable.set(editor, drawables);
+        } catch (NoSuchFieldException e1) {
+            e1.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
+        }
+    }
+
+    private static ColorStateList createEditTextColorStateList(Context context, @ColorInt int color) {
+        int[][] states = new int[3][];
+        int[] colors = new int[3];
+        int i = 0;
+        states[i] = new int[] {-android.R.attr.state_enabled};
+        colors[i] = DialogUtil.resolveColor(context, R.attr.colorControlNormal);
+        i++;
+        states[i] = new int[] {-android.R.attr.state_pressed, -android.R.attr.state_focused};
+        colors[i] = DialogUtil.resolveColor(context, R.attr.colorControlNormal);
+        i++;
+        states[i] = new int[] {};
+        colors[i] = color;
+        return new ColorStateList(states, colors);
     }
 
 }
