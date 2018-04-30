@@ -169,4 +169,46 @@ public class DialogInit {
             fixCanvasScalingWhenHardwareAccelerated(dialog.progressBar);
         }
     }
+
+    private static void setupInputDialog(final CompositeAlertDialog dialog) {
+        final CompositeAlertDialog.DialogBuilder builder = dialog.builder;
+        dialog.input = dialog.view.findViewById(android.R.id.input);
+        if (dialog.input == null) {
+            return;
+        }
+        dialog.setTypeface(dialog.input, builder.regularFont);
+        if (builder.inputPrefill != null) {
+            dialog.input.setText(builder.inputPrefill);
+        }
+        dialog.setInternalInputCallback();
+        dialog.input.setHint(builder.inputHint);
+        dialog.input.setSingleLine();
+        dialog.input.setTextColor(builder.contentColor);
+        dialog.input.setHintTextColor(DialogUtils.adjustAlpha(builder.contentColor, 0.3f));
+        MDTintHelper.setTint(dialog.input, dialog.builder.widgetColor);
+
+        if (builder.inputType != -1) {
+            dialog.input.setInputType(builder.inputType);
+            if (builder.inputType != InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    && (builder.inputType & InputType.TYPE_TEXT_VARIATION_PASSWORD)
+                    == InputType.TYPE_TEXT_VARIATION_PASSWORD) {
+                // If the flags contain TYPE_TEXT_VARIATION_PASSWORD, apply the password transformation
+                // method automatically
+                dialog.input.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+        }
+
+        dialog.inputMinMax = dialog.view.findViewById(R.id.md_minMax);
+        if (builder.inputMinLength > 0 || builder.inputMaxLength > -1) {
+            dialog.invalidateInputMinMaxIndicator(
+                    dialog.input.getText().toString().length(), !builder.inputAllowEmpty);
+        } else {
+            dialog.inputMinMax.setVisibility(View.GONE);
+            dialog.inputMinMax = null;
+        }
+
+        if (builder.inputFilters != null) {
+            dialog.input.setFilters(builder.inputFilters);
+        }
+    }
 }
