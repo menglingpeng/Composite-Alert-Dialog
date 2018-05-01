@@ -17,7 +17,7 @@ import static android.view.View.TEXT_ALIGNMENT_CENTER;
  * Created by mengdroid on 2018/4/12.
  */
 
-public class CDButton extends TextView {
+public class CDButton extends android.support.v7.widget.AppCompatTextView {
 
     private boolean stacked = false;
     private GravityEnum stackedGravity;

@@ -37,7 +37,7 @@ public class CompositeAlertDialog extends BaseDialog implements View.OnClickList
     public TextView contentTv;
     public View titleFrame;
     public RecyclerView recyclerView;
-    private EditText inputEt;
+    public EditText inputEt;
     public ProgressBar progressBar;
     public CheckBox checkBoxPrompt;
     public CDButton positiveButton;

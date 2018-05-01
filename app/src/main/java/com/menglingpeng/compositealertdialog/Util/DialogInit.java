@@ -2,6 +2,8 @@ package com.menglingpeng.compositealertdialog.Util;
 
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 
 import com.menglingpeng.compositealertdialog.CompositeAlertDialog;
@@ -172,29 +174,29 @@ public class DialogInit {
 
     private static void setupInputDialog(final CompositeAlertDialog dialog) {
         final CompositeAlertDialog.DialogBuilder builder = dialog.builder;
-        dialog.input = dialog.view.findViewById(android.R.id.input);
-        if (dialog.input == null) {
+        dialog.inputEt = dialog.view.findViewById(android.R.id.input);
+        if (dialog.inputEt == null) {
             return;
         }
         dialog.setTypeface(dialog.input, builder.regularFont);
         if (builder.inputPrefill != null) {
-            dialog.input.setText(builder.inputPrefill);
+            dialog.inputEt.setText(builder.inputPrefill);
         }
         dialog.setInternalInputCallback();
-        dialog.input.setHint(builder.inputHint);
-        dialog.input.setSingleLine();
-        dialog.input.setTextColor(builder.contentColor);
-        dialog.input.setHintTextColor(DialogUtils.adjustAlpha(builder.contentColor, 0.3f));
-        MDTintHelper.setTint(dialog.input, dialog.builder.widgetColor);
+        dialog.inputEt.setHint(builder.inputHint);
+        dialog.inputEt.setSingleLine();
+        dialog.inputEt.setTextColor(builder.contentColor);
+        dialog.inputEt.setHintTextColor(DialogUtil.adjustAlpha(builder.contentColor, 0.3f));
+        TintHelper.setTint(dialog.inputEt, dialog.builder.widgetColor);
 
         if (builder.inputType != -1) {
-            dialog.input.setInputType(builder.inputType);
+            dialog.inputEt.setInputType(builder.inputType);
             if (builder.inputType != InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
                     && (builder.inputType & InputType.TYPE_TEXT_VARIATION_PASSWORD)
                     == InputType.TYPE_TEXT_VARIATION_PASSWORD) {
                 // If the flags contain TYPE_TEXT_VARIATION_PASSWORD, apply the password transformation
                 // method automatically
-                dialog.input.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                dialog.inputEt.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
         }
 
@@ -208,7 +210,7 @@ public class DialogInit {
         }
 
         if (builder.inputFilters != null) {
-            dialog.input.setFilters(builder.inputFilters);
+            dialog.inputEt.setFilters(builder.inputFilters);
         }
     }
 }
