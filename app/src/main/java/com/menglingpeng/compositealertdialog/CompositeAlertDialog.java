@@ -4,11 +4,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.AttrRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
+import android.support.annotation.UiThread;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -92,7 +96,7 @@ public class CompositeAlertDialog extends BaseDialog implements View.OnClickList
     }
 
     public final View getView() {
-        return dialogView;
+        return view;
     }
 
     @Nullable
@@ -107,6 +111,72 @@ public class CompositeAlertDialog extends BaseDialog implements View.OnClickList
     public ImageView getIconView() {
         return iconIv;
     }
+
+    public final int numberOfActionButtons() {
+        int number = 0;
+        if (positiveButton.getVisibility() == View.VISIBLE) {
+            number++;
+        }
+        if (neutralButton.getVisibility() == View.VISIBLE) {
+            number++;
+        }
+        if (negativeButton.getVisibility() == View.VISIBLE) {
+            number++;
+        }
+        return number;
+    }
+
+    @UiThread
+    @Override
+    public final void setTitle(CharSequence newTitle) {
+        titleTv.setText(newTitle);
+    }
+
+    @UiThread
+    @Override
+    public final void setTitle(@StringRes int newTitleRes) {
+        setTitle(getContext().getString(newTitleRes));
+    }
+
+    @UiThread
+    public final void setTitle(@StringRes int newTitleRes, @Nullable Object... formatArgs) {
+        setTitle(getContext().getString(newTitleRes, formatArgs));
+    }
+
+    @UiThread
+    public void setIcon(@DrawableRes final int resId) {
+        iconIv.setImageResource(resId);
+        iconIv.setVisibility(resId != 0 ? View.VISIBLE : View.GONE);
+    }
+
+    @UiThread
+    public void setIcon(@Nullable final Drawable d) {
+        iconIv.setImageDrawable(d);
+        iconIv.setVisibility(d != null ? View.VISIBLE : View.GONE);
+    }
+
+    @UiThread
+    public void setIconAttribute(@AttrRes int attrId) {
+        Drawable d = DialogUtil.resolveDrawable(getContext(), attrId);
+        setIcon(d);
+    }
+
+    @UiThread
+    public final void setContent(CharSequence newContent) {
+        contentTv.setText(newContent);
+        contentTv.setVisibility(TextUtils.isEmpty(newContent) ? View.GONE : View.VISIBLE);
+    }
+
+    @UiThread
+    public final void setContent(@StringRes int newContentRes) {
+        setContent(getContext().getString(newContentRes));
+    }
+
+    @UiThread
+    public final void setContent(@StringRes int newContentRes, @Nullable Object... formatArgs) {
+        setContent(getContext().getString(newContentRes, formatArgs));
+    }
+
 
     public final void setActionButton(final DialogActionEnum which, @Nullable final CharSequence title) {
         switch (which) {
