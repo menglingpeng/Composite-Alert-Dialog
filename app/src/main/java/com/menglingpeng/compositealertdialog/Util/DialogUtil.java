@@ -118,6 +118,56 @@ public class DialogUtil {
         }
     }
 
+    public static int resolveDimension(Context context, @AttrRes int attr) {
+        return resolveDimension(context, attr, -1);
+    }
+
+    private static int resolveDimension(Context context, @AttrRes int attr, int fallback) {
+        TypedArray a = context.getTheme().obtainStyledAttributes(new int[] {attr});
+        try {
+            return a.getDimensionPixelSize(0, fallback);
+        } finally {
+            a.recycle();
+        }
+    }
+
+    public static boolean resolveBoolean(Context context, @AttrRes int attr, boolean fallback) {
+        TypedArray a = context.getTheme().obtainStyledAttributes(new int[] {attr});
+        try {
+            return a.getBoolean(0, fallback);
+        } finally {
+            a.recycle();
+        }
+    }
+
+    public static boolean resolveBoolean(Context context, @AttrRes int attr) {
+        return resolveBoolean(context, attr, false);
+    }
+
+    public static ColorStateList resolveActionTextColorStateList(
+            Context context, @AttrRes int colorAttr, ColorStateList fallback) {
+        TypedArray a = context.getTheme().obtainStyledAttributes(new int[] {colorAttr});
+        try {
+            final TypedValue value = a.peekValue(0);
+            if (value == null) {
+                return fallback;
+            }
+            if (value.type >= TypedValue.TYPE_FIRST_COLOR_INT
+                    && value.type <= TypedValue.TYPE_LAST_COLOR_INT) {
+                return getActionTextStateList(context, value.data);
+            } else {
+                final ColorStateList stateList = a.getColorStateList(0);
+                if (stateList != null) {
+                    return stateList;
+                } else {
+                    return fallback;
+                }
+            }
+        } finally {
+            a.recycle();
+        }
+    }
+
     public static void showKeyboard(final DialogInterface di) {
         final CompositeAlertDialog dialog = (CompositeAlertDialog) di;
         if (dialog.getInputEditText() == null) {
@@ -175,19 +225,6 @@ public class DialogUtil {
                 };
         int[] colors = new int[] {DialogUtil.adjustAlpha(newPrimaryColor, 0.4f), newPrimaryColor};
         return new ColorStateList(states, colors);
-    }
-
-    public static int[] getColorArray(Context context, @ArrayRes int array) {
-        if (array == 0) {
-            return null;
-        }
-        TypedArray ta = context.getResources().obtainTypedArray(array);
-        int[] colors = new int[ta.length()];
-        for (int i = 0; i < ta.length(); i++) {
-            colors[i] = ta.getColor(i, 0);
-        }
-        ta.recycle();
-        return colors;
     }
 
     public static void setBackgroundCompat(View view, Drawable d) {
